@@ -1,12 +1,12 @@
 package org.silpa.ucasort;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.RuleBasedCollator;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sujith on 13/7/14.
@@ -57,28 +57,41 @@ public class UCASort {
      * Function to sort using collator
      *
      * @param text text to be sorted
-     * @return map
+     * @return string array
      */
-    public Map<String, String[]> sort(String text) {
-        String[] wordsSILPA = text.split(" ");
-        String[] wordsUCA = text.split(" ");
+    public static String[] sort(String text) {
 
-        Arrays.sort(wordsSILPA, mlCollator);
-        Arrays.sort(wordsUCA);
+        if (text == null) return null;
 
-        Map<String, String[]> sortedWords = new HashMap<String, String[]>();
-        sortedWords.put("SILPA", wordsSILPA);
-        sortedWords.put("UCA", wordsUCA);
+        String[] words = text.split(" ");
+        Arrays.sort(words, mlCollator);
 
-        return sortedWords;
+        return words;
     }
+
+    /**
+     * Function to sort using collator using text from android view which can be instance of textview.
+     * Eg: TextView, EditText, Button
+     *
+     * @param v1 view
+     * @return sorted string array
+     */
+    public static String[] sort(View v1) {
+
+        String text = null;
+        if (v1 instanceof TextView) {
+            text = ((TextView) v1).getText().toString();
+        }
+        return sort(text);
+    }
+
 
     /**
      * This function gives name of the module
      *
      * @return name of module
      */
-    public String getModuleName() {
+    public static String getModuleName() {
         return UCASort.MODULE_NAME;
     }
 
@@ -87,7 +100,7 @@ public class UCASort {
      *
      * @return brief information regarding the module
      */
-    public String getModuleInformation() {
+    public static String getModuleInformation() {
         return UCASort.MODULE_INFORMATION;
     }
 }

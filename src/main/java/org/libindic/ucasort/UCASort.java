@@ -1,4 +1,4 @@
-package org.silpa.ucasort;
+package org.libindic.ucasort;
 
 import android.util.Log;
 import android.view.View;
